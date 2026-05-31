@@ -1,0 +1,347 @@
+@charset "UTF-8";
+
+:root {
+}
+
+/* ==========================================================================
+   1. ANULACIÓN DE ESTILOS DEL NAVEGADOR (ESPECIFICIDAD CERO)
+   ========================================================================== */
+/**
+ * LÓGICA PARA PRINCIPIANTES:
+ * Los navegadores aplican estilos visuales por defecto a etiquetas como h1, p o ul.
+ * Usamos ':where()' para limpiar esos estilos nativos bajando su importancia a CERO.
+ * Al hacer esto, cualquier clase CSS que crees más adelante en tus archivos de componentes
+ * ganará la prioridad de forma automática sin que tengas que usar el conflictivo '!important'.
+ *
+ * EXCLUSIONES CRÍTICAS:
+ * Excluimos elementos interactivos o multimedia complejos (como html, dialog, svg, canvas)
+ * para evitar romper sus comportamientos lógicos internos esenciales de renderizado.
+ */
+*:where(
+  :not(html, dialog, summary, iframe, canvas, img, svg, video, audio):not(
+    svg *,
+    symbol *
+  )
+) {
+  all: unset; /* Borra absolutamente todas las propiedades visuales y espaciados heredados */
+  display: revert; /* Devuelve al elemento su forma natural de comportarse (ej: bloque o inline) */
+}
+
+/* ==========================================================================
+   2. CONTROL DE CAJAS Y ACCESIBILIDAD GLOBAL
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  /* Al definir tamaños, el padding y el borde se calculan hacia adentro del contenedor.
+     Evita que una caja "crezca" o se deforme al agregarle espaciados internos. */
+  box-sizing: border-box;
+
+  /* Elimina de raíz el molesto recuadro translúcido que parpadea de forma nativa en
+     dispositivos táctiles Apple (iOS/Safari) cuando un usuario presiona un enlace o botón. */
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* DETECCIÓN DE PREFERENCIAS: REDUCCIÓN DE MOVIMIENTO
+   Si el usuario desactivó las animaciones en la configuración de su sistema operativo
+   (para evitar mareos o por rendimiento), apagamos de golpe los efectos en la web. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================================================================
+   3. CONFIGURACIÓN RAÍZ DEL DOCUMENTO
+   ========================================================================== */
+html {
+  font-size: 100%; /* Define la escala base del documento en 16px (1rem = 16px) */
+  scroll-behavior: smooth; /* Hace que los saltos de los enlaces internos tengan una transición suave */
+
+  /* Evita que Safari en móviles altere o aumente el tamaño de la tipografía
+     de manera desproporcionada e impredecible cuando el usuario gira el teléfono. */
+  -webkit-text-size-adjust: none;
+}
+
+/* --- ENHANCED SYSTEM VIEWPORT SCROLLBAR --- */
+
+/* --- 1. AISLAMIENTO EXCLUSIVO PARA MOZILLA FIREFOX --- */
+@-moz-document url-prefix() {
+  html {
+    scrollbar-width: thin !important;
+    /* Dejamos el color estático para evitar que el hover afecte a toda la pantalla.
+       Se mantiene limpio, delgado y del color gris corporativo. */
+    scrollbar-color: var(--colorLightGray, #999999) transparent !important;
+  }
+}
+
+/* --- 2. AISLAMIENTO EXCLUSIVO PARA CHROME, EDGE, SAFARI Y OPERA --- */
+html::-webkit-scrollbar {
+  width: 0.45rem;
+  height: 0.45rem;
+}
+
+/* Extirpación física de los botones de flechas en motores Webkit */
+html::-webkit-scrollbar-button {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* Fondo del canal */
+html::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+/* El tirador (Thumb) */
+html::-webkit-scrollbar-thumb {
+  background-color: var(--colorLightGray, #999999) !important;
+  border-radius: 6.25rem !important;
+  border-style: solid !important;
+  border-color: transparent !important;
+  border-width: 0 0.125rem !important;
+  background-clip: padding-box !important;
+}
+
+/* En Chrome SÍ funciona perfecto porque el hover se aplica directo al elemento de la barra */
+html::-webkit-scrollbar-thumb:hover {
+  background-color: var(--colorDarkGray, #d2d2d2) !important;
+}
+
+/* --- FIN ENHANCED SYSTEM VIEWPORT SCROLLBAR --- */
+
+body {
+  min-height: 100vh; /* Asegura que el fondo cubra siempre, como mínimo, el alto total de la pantalla */
+  font-size: 100%;
+  line-height: 1.5; /* Espaciado entre líneas óptimo para lectura estándar */
+
+  /* Tecnologías de Suavizado: Fuerzan un renderizado de tipografías más limpio, esbelto
+     y de alta fidelidad en pantallas de alta densidad (Mac, iOS y navegadores basados en Gecko). */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ==========================================================================
+   4. CONTROL DE TEXTO SEMÁNTICO COGNITIVO
+   ========================================================================== */
+blockquote,
+q {
+  quotes: none; /* Elimina las comillas gráficas que algunos navegadores inyectan al texto de citas */
+}
+
+blockquote::before,
+blockquote::after,
+q::before,
+q::after {
+  content: "";
+  content: none;
+}
+
+mark {
+  background-color: transparent; /* Limpia el color fosforescente nativo de la etiqueta de resaltado */
+  color: inherit;
+}
+
+/* ==========================================================================
+   5. BLINDAJE MULTIMEDIA (PREVENCION DE CAMBIOS DE DISEÑO - CLS)
+   ========================================================================== */
+img,
+picture,
+video,
+iframe,
+figure,
+canvas {
+  max-width: 100%;
+  display: block; /* Elimina el espacio vacío o "fantasma" que los navegadores dejan debajo de las imágenes */
+
+  /* Actúa como el 'background-size: cover'. Escala el recurso multimedia para que llene
+     su contenedor adaptándose de forma responsiva sin deformar ni estirar la imagen original. */
+  object-fit: cover;
+  object-position: center center; /* Centra el enfoque de la imagen cuando el contenedor se recorta */
+  -webkit-user-drag: none; /* Impide que el usuario arrastre la imagen con el ratón por error en la UI */
+}
+
+svg {
+  width: 100%;
+  display: block;
+  fill: currentColor; /* Permite cambiar el color del SVG heredando directamente la propiedad 'color' del padre */
+}
+
+/* CASO ESPECIAL TIPOGRÁFICO EMBEDIDO:
+   Nivelación y comportamiento en línea para gráficos e iconos incrustados
+   directamente dentro de cualquier bloque de flujo de texto regular (párrafos, listas, enlaces, spans) */
+p svg,
+p img,
+li svg,
+li img,
+a svg,
+a img,
+span svg,
+span img {
+  display: inline;
+  width: initial;
+  height: initial; /* Asegura el reset tridimensional del icono */
+  vertical-align: middle; /* Cambiar a middle suele dar un centrado óptico más armónico con las letras que baseline */
+}
+
+/* ==========================================================================
+   6. HOMOLOGACIÓN TIPOGRÁFICA Y CONTROL DE ENLACES
+   ========================================================================== */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+a,
+strong,
+blockquote,
+i,
+b,
+u,
+em,
+mark,
+del,
+ins,
+code,
+pre,
+kbd,
+samp,
+small,
+sub,
+sup,
+address {
+  font-size: 1em;
+  font-weight: inherit;
+  font-style: inherit;
+  text-decoration: none;
+  color: inherit;
+
+  /* BLINDAJE EXTREMO: Si hay una palabra larguísima o un enlace largo sin espacios, el navegador
+     está obligado a cortarla y mandarla a la siguiente línea en vez de desbordar y romper la caja. */
+  overflow-wrap: break-word;
+}
+
+a {
+  display: block; /* Convierte el enlace en bloque para aplicar paddings, dimensiones y transformaciones con holgura */
+  color: inherit;
+  cursor: pointer;
+}
+
+p,
+article {
+  /* Divide silábicamente las palabras usando guiones automáticos (-) solo si el texto es muy denso,
+  ayudando a mantener la justificación o estética limpia en bloques largos de lectura. */
+  hyphens: auto;
+  text-wrap: pretty;
+}
+
+/* ENLACES EMBEBIDOS:
+   Si un enlace vive dentro de un párrafo o elemento de texto regular, debe comportarse como inline
+   para poder fluir libremente al lado de las palabras sin provocar saltos de línea destructivos. */
+p a,
+li a,
+blockquote a,
+span a {
+  display: inline;
+}
+
+/* ==========================================================================
+   7. ELEMENTOS DE MAQUETACIÓN (LISTAS Y ESTRUCTURAS TABULARES)
+   ========================================================================== */
+ol,
+ul,
+li,
+menu,
+summary {
+  list-style: none; /* Elimina las viñetas, círculos o numeraciones nativas de las listas */
+}
+
+ol {
+  /* CORRECCIÓN ARQUITECTÓNICA: Como usamos 'all: unset' arriba, las listas ordenadas (<ol>) pierden
+     la capacidad interna de contar. Con esto reactivamos el contador de orden nativo (1, 2, 3...). */
+  counter-reset: revert;
+}
+
+table,
+thead,
+tbody,
+tfoot,
+tr {
+  border-collapse: collapse; /* Fusiona las líneas divisorias dobles de las celdas en un único borde limpio */
+  border-spacing: 0;
+  width: 100%;
+  font: inherit;
+}
+
+td,
+th {
+  padding: 0;
+  text-align: left;
+  font-weight: inherit;
+}
+
+/* ==========================================================================
+   8. FORMULARIOS, ESTADOS DE FOCO Y ACCESIBILIDAD INTERACTIVA
+   ========================================================================== */
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+  color: inherit;
+
+  /* Destruye por completo la apariencia visual del sistema operativo. Es vital para quitar
+     las esquinas excesivamente redondeadas y sombras grises invasivas que iOS/Safari inyecta por defecto. */
+  appearance: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+textarea {
+  resize: none; /* Bloquea el tirador inferior derecho impidiendo que el usuario estire el campo y rompa la interfaz */
+  white-space: pre-wrap; /* Conserva fielmente los saltos de línea y espacios en blanco que el usuario digite */
+  overflow-wrap: break-word;
+  word-break: break-word; /* Fuerza la ruptura interna de caracteres continuos si el volumen de datos supera el ancho */
+}
+
+/* NEUTRALIZACIÓN DE VALIDACIONES INVASIVAS:
+   Anula las sombras rojas y contornos de error automáticos que motores como Firefox y Safari colocan
+   apenas renderiza el formulario, permitiendo que controles los estados inválidos con tus clases CSS de JS. */
+input:invalid,
+textarea:invalid,
+input:focus:invalid,
+textarea:focus:invalid {
+  box-shadow: none;
+  outline: none;
+}
+
+button,
+label,
+summary,
+[role="button"] {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background-color: transparent;
+  display: inline-block; /* Permite ordenarlos de manera horizontal o aplicar márgenes precisos */
+  cursor: pointer; /* Cambia el puntero por la mano interactiva, ausente por defecto en etiquetas <button> */
+  border: none;
+  padding: 0;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+::placeholder {
+  color: inherit;
+  opacity: 0.5; /* Suaviza el tono del texto indicativo de fondo haciéndolo sutil pero legible */
+}

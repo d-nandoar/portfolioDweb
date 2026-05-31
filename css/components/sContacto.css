@@ -1,0 +1,20 @@
+.sContacto {
+  /* 2. Box Model */
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  padding: 10rem 5%;
+  box-sizing: border-box;
+}
+
+/* Título reutilizable para las secciones de contenido */
+.sTitle {
+  /* 2. Box Model */
+  border-left: 0.25rem solid #00e5ff;
+  padding-left: 1.5rem;
+  /* 3. Typography */
+  font-size: 2em;
+  /* 4. Visuals */
+  color: #ffffff;
+}

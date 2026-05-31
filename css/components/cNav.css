@@ -1,0 +1,499 @@
+/* ==========================================================================\
+   COMPONENT STYLE: cNav.css (Comentarios Simplificados y Soporte Overlay)
+   ========================================================================== */
+
+:root {
+  /* Colores principales de la barra extraídos del diseño oscuro */
+  --cNavBgSurface: rgba(18, 22, 28, 0.75);
+  --cNavBgScrolling: rgba(10, 12, 16, 0.9);
+  --cNavColorText: var(--colorWhite);
+  --cNavColorMuted: #b0b5c1;
+  --cNavColorAccent: #00e5ff;
+  --cNavBorder: rgba(255, 255, 255, 0.08);
+
+  /* Tamaños, espacios y configuraciones generales */
+  --navHeight: 4.5rem;
+  --navTopSpace: 2.5rem;
+  --navBlur: 0.75rem;
+
+  /* Iconos en formato SVG cargados de forma externa */
+  --cNavSvgChevron: url("../../assets/icons/chevron.svg");
+  --cNavSvgMenu: url("../../assets/icons/menu.svg");
+  --cNavSvgClose: url("../../assets/icons/close.svg");
+
+  /* ==========================================================================
+     NUEVAS VARIABLES EXTRAÍDAS (Para traspasar a tu masterVariables.css)
+     ========================================================================== */
+  /* --- Estrategia de Capas (Z-Index) --- */
+  --zOverlay: 5; /* Capa intermedia superior al contenido base */
+
+  /* --- Fondos Sólidos y Capas de Componentes Específicos --- */
+  --cNavBgScrollingSolid: rgba(
+    22,
+    51,
+    95,
+    0.6
+  ); /* Azul corporativo translúcido con scroll */
+  --cNavBgSubmenu: #161a22; /* Fondo oscuro profundo exclusivo de submenús */
+  --cNavBgMobileMenu: #12161c; /* Fondo sólido de la tarjeta del menú móvil */
+  --cNavBgOverlay: rgba(
+    10,
+    12,
+    16,
+    0.1
+  ); /* Tonalidad del fondo oscuro difuminado trasero */
+  --cNavBgHoverMenu: rgba(
+    255,
+    255,
+    255,
+    0.05
+  ); /* Burbuja sutil en hover de enlaces */
+  --cNavBgActiveMenu: rgba(
+    255,
+    255,
+    255,
+    0.1
+  ); /* Fondo de píldora para estados activos */
+  --cNavBgSubmenuHover: rgba(
+    255,
+    255,
+    255,
+    0.08
+  ); /* Reacción hover dentro de submenús */
+  --cNavBgMobileSubmenu: rgba(
+    0,
+    0,
+    0,
+    0.2
+  ); /* Fondo colapsable exacto de submenú en móvil */
+
+  /* --- Bordes y Sombras Especiales --- */
+  --cNavBorderActive: rgba(
+    255,
+    255,
+    255,
+    0.15
+  ); /* Perímetro sutil para elementos activos */
+  --cNavBorderActiveInner: rgba(
+    255,
+    255,
+    255,
+    0.1
+  ); /* Reflejo de luz interno superior (borde inset) */
+  --cNavShadowScrolling: 0 0.75rem 2.5rem rgba(0, 0, 0, 0.5); /* Sombra de elevación en scroll */
+  --cNavShadowActive: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.2); /* Sombra suave de píldora activa */
+  --cNavShadowSubmenu: 0 0.9375rem 2.1875rem rgba(0, 0, 0, 0.6); /* Sombra pesada para desplegables */
+  --cNavShadowMobile: 0 1.25rem 2.8125rem rgba(0, 0, 0, 0.8); /* Sombra de gran profundidad móvil */
+
+  /* --- Dimensiones de Iconografía Específica --- */
+  --cNavIconArrowWidth: 1rem;
+  --cNavIconArrowHeight: 1rem;
+  --cNavIconHambWidth: 1.5rem;
+  --cNavIconHambHeight: 1.5rem;
+  --cNavIconCloseWidth: 1.3rem;
+  --cNavIconCloseHeight: 1.2rem;
+
+  /* --- Configuraciones del Botón Destacado (CTA) --- */
+  --cNavCtaBorder: rgba(0, 229, 255, 0.4); /* Color perimetral del botón cian */
+  --cNavCtaBg: rgba(0, 229, 255, 0.05); /* Fondo sutil translúcido cian */
+}
+
+/* Flecha indicadora del menú desplegable */
+.cNav__iconArrow {
+  mask: var(
+    --cNavSvgChevron
+  ); /* Aplica la silueta SVG como máscara de recorte */
+  -webkit-mask: var(
+    --cNavSvgChevron
+  ); /* Compatibilidad de máscara para navegadores basados en Webkit/Safari */
+  width: var(--cNavIconArrowWidth);
+  height: var(--cNavIconArrowHeight);
+  margin-top: -0.0938rem;
+  vertical-align: middle; /* Alinea verticalmente el icono al centro del texto continuo */
+  transition: transform var(--timeFast) ease-out; /* Controla la velocidad y fluidez de la animación */
+}
+
+/* Hace rotar la flecha 180 grados hacia arriba cuando el link está abierto (estado accesible activo) */
+.cNav__menuLink[aria-expanded="true"] .cNav__iconArrow {
+  transform: rotate(180deg);
+}
+
+/* Icono del botón hamburguesa para pantallas móviles */
+.cNav__iconTrigger {
+  mask: var(--cNavSvgMenu); /* Usa el SVG de las tres rayas del menú */
+  -webkit-mask: var(--cNavSvgMenu);
+  width: var(--cNavIconHambWidth);
+  height: var(--cNavIconHambHeight);
+}
+
+/* Cambia el icono de hamburguesa por una "X" de cierre cuando el menú se despliega */
+.cNav__trigger--active .cNav__iconTrigger {
+  width: var(--cNavIconCloseWidth);
+  height: var(--cNavIconCloseHeight);
+  mask: var(--cNavSvgClose); /* Cambia la máscara al SVG de la cruz de cerrar */
+  -webkit-mask: var(--cNavSvgClose);
+}
+
+/* Contenedor padre de la barra de navegación completa */
+.cNav {
+  position: fixed; /* Mantiene la barra fija en la pantalla sin importar el scroll */
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: transparent;
+  z-index: var(
+    --zComponentes
+  ); /* Prioridad de capa para posicionarse sobre el resto de elementos */
+  pointer-events: none; /* Traspasa los clicks al fondo para no bloquear la pantalla vacía */
+  display: flex;
+  justify-content: center; /* Centra horizontalmente el contenido interno */
+  text-transform: uppercase; /* Convierte automáticamente todo el texto a mayúsculas */
+}
+
+/* Estructura envolvente interna (La cápsula principal): Estado sin scroll en la parte superior */
+.cNav__wrapper {
+  pointer-events: auto; /* Devuelve la capacidad de hacer click a la barra interna */
+  display: flex;
+  align-items: center; /* Centra los elementos verticalmente */
+  justify-content: space-between; /* Separa el logo a la izquierda y los links a la derecha */
+  width: var(--containerWidth);
+  max-width: 100%;
+  height: var(--navHeight);
+  margin-top: 1.125rem; /* Margen inicial superior */
+  background-color: transparent;
+  transition: all var(--timeMedium) ease-out; /* Suaviza los cambios visuales al hacer scroll */
+}
+
+/* Estado de la cápsula principal cuando el usuario baja en la página (Modo flotante flotando) */
+.cNav__wrapper--scrolling {
+  width: var(--containerWidth);
+  max-width: var(--containerMaxWidth);
+  margin-top: var(--navTopSpace);
+  padding: 0 var(--spaceLg);
+  background-color: var(--cNavBgScrollingSolid);
+  backdrop-filter: blur(
+    var(--navBlur)
+  ); /* Difumina el fondo de la página que pasa detrás de la cápsula */
+  -webkit-backdrop-filter: blur(
+    var(--navBlur)
+  ); /* Compatibilidad del efecto de difuminado para Safari */
+  border: 1px solid var(--cNavBorder);
+  border-radius: 6.25rem; /* Transforma las esquinas para dar una estética de píldora redondeada */
+  box-shadow: var(
+    --cNavShadowScrolling
+  ); /* Añade una sombra profunda para dar sensación de elevación */
+}
+
+/* Bloque contenedor del logotipo corporativo */
+.cNav__blockLogo {
+  display: flex;
+  align-items: center;
+}
+
+/* Estilos de la marca/texto del logotipo */
+.cNav__logo {
+  font-weight: var(--weightBold);
+  color: var(--cNavColorText);
+  text-decoration: none; /* Elimina el subrayado por defecto de las etiquetas de enlace */
+  font-size: 1.2em;
+  white-space: nowrap; /* Prohíbe que el texto del logo se rompa en dos líneas */
+  text-transform: none; /* Respeta las mayúsculas y minúsculas originales del texto */
+}
+
+/* Contenedor del grupo del menú de navegación */
+.cNav__menu {
+  display: flex;
+  align-items: center;
+}
+
+/* Listado que agrupa los ítems del menú */
+.cNav__menuList {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem; /* Espacio de separación constante entre los links */
+  list-style: none; /* Quita los puntos decorativos de la lista HTML */
+  margin: 0;
+  padding: 0;
+}
+
+/* Cada celda o ítem de la lista */
+.cNav__menuItem {
+  display: flex;
+  align-items: center;
+}
+
+/* Área del botón hamburguesa (Oculto por defecto en computadoras de escritorio) */
+.cNav__blockHamb {
+  display: none;
+}
+
+/* El botón físico que activa el menú en celulares */
+.cNav__trigger {
+  background: transparent;
+  color: var(--cNavColorText);
+  border: none; /* Remueve el borde de fábrica de los botones html */
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+/* Enlaces individuales de la barra de navegación */
+.cNav__menuLink {
+  font-family: var(--fontNav);
+  color: var(--cNavColorMuted);
+  text-decoration: none;
+  font-size: 0.9375em;
+  background: transparent;
+  border: none;
+  padding: var(--spaceSm) 0.75rem;
+  border-radius: 3.125rem;
+  transition: all var(--timeFast) ease-out;
+  cursor: pointer; /* Transforma el cursor en una mano haciendo clic */
+  white-space: nowrap;
+}
+
+/* Reacción visual al pasar el cursor sobre un link de la barra */
+.cNav__menuLink:hover {
+  color: var(--cNavColorText);
+  background-color: var(
+    --cNavBgHoverMenu
+  ); /* Crea un óvalo gris translúcido sutil de fondo */
+}
+
+/* Estado del link correspondiente a la página actual o sección activa */
+.cNav__menuLink--active,
+.cNav__menuLink--activeParent {
+  color: var(--cNavColorText) !important;
+  background-color: var(--cNavBgActiveMenu);
+  border: 1px solid var(--cNavBorderActive);
+  box-shadow:
+    inset 0 0.0625rem 0 var(--cNavBorderActiveInner),
+    /* Sutil reflejo brillante en el borde interno superior */
+    var(--cNavShadowActive);
+}
+
+/* Botón destacado llamativo (Estilo Llamada a la Acción o CTA) */
+.cNav__menuLink--cta {
+  border: 1px solid var(--cNavCtaBorder);
+  border-radius: 2rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--cNavCtaBg);
+  color: var(--cNavColorAccent) !important;
+  transition: all var(--timeFast) ease;
+}
+
+/* Cambio visual al pasar el ratón encima del botón destacado */
+.cNav__menuLink--cta:hover {
+  background: var(--cNavBgActiveMenu);
+  border-color: transparent;
+  color: var(--colorWhite) !important;
+}
+
+/* Configuración del contenedor del submenú de servicios (Computadora) */
+.cNav__menuItem--dropdown {
+  position: relative; /* Sirve de ancla para posicionar el submenú de manera absoluta debajo */
+}
+
+/* Contenedor del submenú desplegable flotante de servicios */
+.cNav__submenu {
+  position: absolute;
+  top: calc(
+    100% + var(--spaceSm)
+  ); /* Se despliega justo debajo del elemento padre respetando un espaciado */
+  right: 0;
+  display: flex;
+  flex-direction: column; /* Organiza las opciones internas verticalmente en fila */
+  gap: 0.5rem;
+  width: 16rem;
+  padding: 1.25rem 1.7rem;
+  background-color: var(--cNavBgSubmenu);
+  border: 1px solid var(--cNavBorder);
+  border-radius: var(--bRadiusSm);
+  box-shadow: var(--cNavShadowSubmenu);
+  list-style: none;
+  opacity: 0; /* Totalmente invisible por defecto */
+  visibility: hidden; /* Previene la selección o click accidental mientras está oculto */
+  transform: translateY(
+    -0.625rem
+  ); /* Lo desfasa ligeramente hacia arriba para la animación de entrada */
+  transition: all var(--timeFast) ease-out;
+}
+
+/* Clase de control inyectada por JS para activar y mostrar el submenú */
+.cNav__submenu.uIsVisible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0); /* Regresa a su posición original de diseño */
+}
+
+/* Enlaces individuales del submenú interior */
+.cNav__submenuLink {
+  display: block;
+  padding: 0.6rem 0.85rem;
+  font-size: 0.9em;
+  color: var(--cNavColorMuted);
+  text-decoration: none;
+  border-radius: 0.375rem;
+  transition: all var(--timeFast);
+}
+
+/* Reacción al pasar el mouse u opción seleccionada dentro del submenú */
+.cNav__submenuLink:hover,
+.cNav__submenuLink--active {
+  color: var(--cNavColorAccent);
+  background-color: var(--cNavBgSubmenuHover);
+}
+
+/* El elemento de fondo oscuro se mantiene desactivado en computadoras */
+.cNav__overlay {
+  display: none;
+}
+
+/* ==========================================================================\
+   2. COMPORTAMIENTO RESPONSIVO MÓVIL REFACTORIZADO
+   ========================================================================== */
+@media (max-width: 48rem) {
+  /* Redistribución interna del menú mediante orden posicional */
+  .cNav__blockLogo {
+    order: 1;
+    justify-content: flex-start;
+  }
+  .cNav__menu {
+    order: 2;
+  }
+  .cNav__blockHamb {
+    order: 3;
+    display: flex; /* Muestra el botón de tres líneas en pantallas pequeñas */
+    align-items: center;
+  }
+
+  .cNav__wrapper {
+    width: var(--containerWidth);
+    border-radius: var(--bRadiusSm);
+  }
+
+  /* Bloque del menú desplegable adaptado para teléfonos */
+  .cNav__menu {
+    position: fixed;
+    top: 4.625rem;
+    right: 5%;
+    flex-direction: column;
+    align-items: flex-start;
+    width: var(--containerWidth);
+    max-width: 20rem;
+    padding: var(--spaceLg);
+    background-color: var(--cNavBgMobileMenu);
+    border: 1px solid var(--cNavBorder);
+    border-radius: var(--bRadiusSm);
+    box-shadow: var(--cNavShadowMobile);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-0.625rem);
+    transition: all var(--timeFast) ease-in-out;
+    z-index: 10; /* Lo posiciona sobre el overlay oscuro para que sea cliqueable */
+  }
+
+  /* Reposicionamiento simétrico del bloque cuando se activa el scroll permanente */
+  .cNav__wrapper--scrolling ~ .cNav__menu,
+  #headerPrincipal.cNav__wrapper--scrolling .cNav__menu {
+    top: calc(var(--navHeight) + var(--spaceSm));
+    right: 0%;
+  }
+
+  /* Clase añadida por JS para dar apertura al menú en móviles */
+  .cNav__menu--open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  /* Redirección vertical de la lista de links en móvil */
+  .cNav__menuList {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    gap: 1rem;
+  }
+
+  /* Ajuste de burbuja para los links individuales */
+  .cNav__menuLink {
+    width: max-content; /* Evita que el óvalo gris ocupe todo el ancho de la pantalla */
+    text-align: left;
+    padding: var(--spaceSm) var(--spaceMd);
+  }
+
+  .cNav__menuItem--dropdown {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cNav__menuLink--dropdown {
+    display: inline-flex; /* Encapsula el botón de Servicios para que mantenga tamaño nativo */
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .cNav__iconArrow {
+    margin-left: var(--spaceXs);
+  }
+
+  /* Cambio de submenú flotante a un menú colapsable vertical empujando contenido */
+  .cNav__submenu {
+    position: relative; /* Rompe la flotación absoluta para integrarse al flujo del menú */
+    top: 0;
+    right: 0;
+    width: 100%;
+    margin-top: 1rem;
+    padding: 0;
+    background-color: var(
+      --cNavBgMobileSubmenu
+    ); /* Fondo contrastante sutil para diferenciar las sub-opciones */
+    border: none;
+    box-shadow: none;
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+    display: none; /* Controlado estrictamente de manera binaria con display */
+  }
+
+  /* Muestra el submenú vertical cuando es accionado en móviles */
+  .cNav__submenu.uIsVisible {
+    display: block;
+  }
+
+  /* Separación interna con sangría estética para las opciones secundarias */
+  .cNav__submenuLink {
+    padding: var(--spaceSm) var(--spaceLg);
+  }
+
+  /* Capa de fondo oscuro difuminado detrás del menú móvil */
+  .cNav__overlay {
+    display: block; /* Se activa la estructura en móvil */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw; /* Ocupa el 100% de la ventana horizontal visible */
+    height: 100vh; /* Ocupa el 100% de la ventana vertical visible */
+    background-color: var(--cNavBgOverlay);
+    backdrop-filter: blur(
+      0.25rem
+    ); /* Difumina levemente la página de fondo aumentando el contraste */
+    -webkit-backdrop-filter: blur(0.25rem);
+    pointer-events: none; /* Permite interactuar con el sitio normal mientras esté oculto */
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity var(--timeFast) ease,
+      visibility var(--timeFast) ease;
+    z-index: var(
+      --zOverlay
+    ); /* Se ubica arriba del body usando la variable de control */
+  }
+
+  /* Clase añadida por JS para dar visibilidad al overlay de fondo */
+  .cNav__overlay--visible {
+    pointer-events: auto; /* Atrapa los clics para poder cerrar el menú al presionar fuera */
+    opacity: 1;
+    visibility: visible;
+  }
+}

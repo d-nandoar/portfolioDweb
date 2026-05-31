@@ -1,0 +1,491 @@
+/* ==========================================================================
+   ARCHITECTURAL VARIABLES & SYSTEM CORE (Core Notebook Central)
+   ========================================================================== */
+
+@charset "UTF-8";
+
+/* --- 1. FONTS SPECIFICATION (@font-face) --- */
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src:
+    local("Inter Regular"),
+    local("Inter-Regular"),
+    url("../../assets/fonts/cuerpo/inter/inter-v20-latin-regular.woff2")
+      format("woff2"),
+    url("../../assets/fonts/cuerpo/inter/inter-v20-latin-regular.woff")
+      format("woff");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src:
+    local("Inter Medium"),
+    local("Inter-Medium"),
+    url("../../assets/fonts/cuerpo/inter/inter-v20-latin-500.woff2")
+      format("woff2"),
+    url("../../assets/fonts/cuerpo/inter/inter-v20-latin-500.woff")
+      format("woff");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src:
+    local("Inter Bold"),
+    local("Inter-Bold"),
+    url("../../assets/fonts/cuerpo/inter/inter-v20-latin-700.woff2")
+      format("woff2"),
+    url("../../assets/fonts/cuerpo/inter/inter-v20-latin-700.woff")
+      format("woff");
+}
+
+@font-face {
+  font-family: "Lora";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src:
+    local("Lora Regular"),
+    local("Lora-Regular"),
+    url("../../assets/fonts/cuerpo/lora/lora-v37-latin-regular.woff2")
+      format("woff2"),
+    url("../../assets/fonts/cuerpo/lora/lora-v37-latin-regular.woff")
+      format("woff");
+}
+
+@font-face {
+  font-family: "Lora";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src:
+    local("Lora Medium"),
+    local("Lora-Medium"),
+    url("../../assets/fonts/cuerpo/lora/lora-v37-latin-500.woff2")
+      format("woff2"),
+    url("../../assets/fonts/cuerpo/lora/lora-v37-latin-500.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Lora";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src:
+    local("Lora Bold"),
+    local("Lora-Bold"),
+    url("../../assets/fonts/cuerpo/lora/lora-v37-latin-700.woff2")
+      format("woff2"),
+    url("../../assets/fonts/cuerpo/lora/lora-v37-latin-700.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Merriweather";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src:
+    local("Merriweather Regular"),
+    local("Merriweather-Regular"),
+    url("../../assets/fonts/cuerpo/merriweather/merriweather-v33-latin-regular.woff2")
+      format("woff2"),
+    url("../../assets/fonts/cuerpo/merriweather/merriweather-v33-latin-regular.woff")
+      format("woff");
+}
+
+@font-face {
+  font-family: "Merriweather";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src:
+    local("Merriweather Medium"),
+    local("Merriweather-Medium"),
+    url("../../assets/fonts/cuerpo/merriweather/merriweather-v33-latin-500.woff2")
+      format("woff2"),
+    url("../../assets/fonts/cuerpo/merriweather/merriweather-v33-latin-500.woff")
+      format("woff");
+}
+
+@font-face {
+  font-family: "Merriweather";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src:
+    local("Merriweather Bold"),
+    local("Merriweather-Bold"),
+    url("../../assets/fonts/cuerpo/merriweather/merriweather-v33-latin-700.woff2")
+      format("woff2"),
+    url("../../assets/fonts/cuerpo/merriweather/merriweather-v33-latin-700.woff")
+      format("woff");
+}
+
+@font-face {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src:
+    local("Montserrat Regular"),
+    local("Montserrat-Regular"),
+    url("../../assets/fonts/cuerpo/montserrat/montserrat-v31-latin-regular.woff2")
+      format("woff2"),
+    url("../../assets/fonts/cuerpo/montserrat/montserrat-v31-latin-regular.woff")
+      format("woff");
+}
+
+@font-face {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src:
+    local("Montserrat Medium"),
+    local("Montserrat-Medium"),
+    url("../../assets/fonts/cuerpo/montserrat/montserrat-v31-latin-500.woff2")
+      format("woff2"),
+    url("../../assets/fonts/cuerpo/montserrat/montserrat-v31-latin-500.woff")
+      format("woff");
+}
+
+@font-face {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src:
+    local("Montserrat Bold"),
+    local("Montserrat-Bold"),
+    url("../../assets/fonts/cuerpo/montserrat/montserrat-v31-latin-700.woff2")
+      format("woff2"),
+    url("../../assets/fonts/cuerpo/montserrat/montserrat-v31-latin-700.woff")
+      format("woff");
+}
+
+@font-face {
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src:
+    local("Open Sans Regular"),
+    local("OpenSans-Regular"),
+    url("../../assets/fonts/cuerpo/open-sans/open-sans-v44-latin-regular.woff2")
+      format("woff2"),
+    url("../../assets/fonts/cuerpo/open-sans/open-sans-v44-latin-regular.woff")
+      format("woff");
+}
+
+@font-face {
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src:
+    local("Open Sans Medium"),
+    local("OpenSans-Medium"),
+    url("../../assets/fonts/cuerpo/open-sans/open-sans-v44-latin-500.woff2")
+      format("woff2"),
+    url("../../assets/fonts/cuerpo/open-sans/open-sans-v44-latin-500.woff")
+      format("woff");
+}
+
+@font-face {
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src:
+    local("Open Sans Bold"),
+    local("OpenSans-Bold"),
+    url("../../assets/fonts/cuerpo/open-sans/open-sans-v44-latin-700.woff2")
+      format("woff2"),
+    url("../../assets/fonts/cuerpo/open-sans/open-sans-v44-latin-700.woff")
+      format("woff");
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src:
+    local("Roboto Regular"),
+    local("Roboto-Regular"),
+    url("../../assets/fonts/cuerpo/roboto/roboto-v51-latin-regular.woff2")
+      format("woff2"),
+    url("../../assets/fonts/cuerpo/roboto/roboto-v51-latin-regular.woff")
+      format("woff");
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src:
+    local("Roboto Medium"),
+    local("Roboto-Medium"),
+    url("../../assets/fonts/cuerpo/roboto/roboto-v51-latin-500.woff2")
+      format("woff2"),
+    url("../../assets/fonts/cuerpo/roboto/roboto-v51-latin-500.woff")
+      format("woff");
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src:
+    local("Roboto Bold"),
+    local("Roboto-Bold"),
+    url("../../assets/fonts/cuerpo/roboto/roboto-v51-latin-700.woff2")
+      format("woff2"),
+    url("../../assets/fonts/cuerpo/roboto/roboto-v51-latin-700.woff")
+      format("woff");
+}
+
+@font-face {
+  font-family: "Playfair";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src:
+    local("Playfair Regular"),
+    local("Playfair-Regular"),
+    url("../../assets/fonts/titulos/playfair/playfair-v10-latin-regular.woff2")
+      format("woff2"),
+    url("../../assets/fonts/titulos/playfair/playfair-v10-latin-regular.woff")
+      format("woff");
+}
+
+@font-face {
+  font-family: "Playfair";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src:
+    local("Playfair Medium"),
+    local("Playfair-Medium"),
+    url("../../assets/fonts/titulos/playfair/playfair-v10-latin-500.woff2")
+      format("woff2"),
+    url("../../assets/fonts/titulos/playfair/playfair-v10-latin-500.woff")
+      format("woff");
+}
+
+@font-face {
+  font-family: "Playfair";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src:
+    local("Playfair Bold"),
+    local("Playfair-Bold"),
+    url("../../assets/fonts/titulos/playfair/playfair-v10-latin-700.woff2")
+      format("woff2"),
+    url("../../assets/fonts/titulos/playfair/playfair-v10-latin-700.woff")
+      format("woff");
+}
+
+@font-face {
+  font-family: "Playfair Display";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src:
+    local("Playfair Display Regular"),
+    local("PlayfairDisplay-Regular"),
+    url("../../assets/fonts/titulos/playfair-display/playfair-display-v40-latin-regular.woff2")
+      format("woff2"),
+    url("../../assets/fonts/titulos/playfair-display/playfair-display-v40-latin-regular.woff")
+      format("woff");
+}
+
+@font-face {
+  font-family: "Playfair Display";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src:
+    local("Playfair Display Medium"),
+    local("PlayfairDisplay-Medium"),
+    url("../../assets/fonts/titulos/playfair-display/playfair-display-v40-latin-500.woff2")
+      format("woff2"),
+    url("../../assets/fonts/titulos/playfair-display/playfair-display-v40-latin-500.woff")
+      format("woff");
+}
+
+@font-face {
+  font-family: "Playfair Display";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src:
+    local("Playfair Display Bold"),
+    local("PlayfairDisplay-Bold"),
+    url("../../assets/fonts/titulos/playfair-display/playfair-display-v40-latin-700.woff2")
+      format("woff2"),
+    url("../../assets/fonts/titulos/playfair-display/playfair-display-v40-latin-700.woff")
+      format("woff");
+}
+
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src:
+    local("Poppins Regular"),
+    local("Poppins-Regular"),
+    url("../../assets/fonts/titulos/poppins/poppins-v24-latin-regular.woff2")
+      format("woff2"),
+    url("../../assets/fonts/titulos/poppins/poppins-v24-latin-regular.woff")
+      format("woff");
+}
+
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src:
+    local("Poppins Medium"),
+    local("Poppins-Medium"),
+    url("../../assets/fonts/titulos/poppins/poppins-v24-latin-500.woff2")
+      format("woff2"),
+    url("../../assets/fonts/titulos/poppins/poppins-v24-latin-500.woff")
+      format("woff");
+}
+
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src:
+    local("Poppins Bold"),
+    local("Poppins-Bold"),
+    url("../../assets/fonts/titulos/poppins/poppins-v24-latin-700.woff2")
+      format("woff2"),
+    url("../../assets/fonts/titulos/poppins/poppins-v24-latin-700.woff")
+      format("woff");
+}
+
+/* --- 2. GLOBAL DESIGN TOKENS (:root) --- */
+
+:root {
+  /* Layout Z-Index Strategy */
+  --zCritical: 400;
+  --zModales: 300;
+  --zBloques: 200;
+  --zComponentes: 100;
+  --zBase: 1;
+
+  /* Global Color Palette tokens */
+  --colorWhite: #ffffff;
+  --colorBlack: #000000;
+  --colorPrimary: #181818;
+  --colorSecondary: #f0f0f0;
+  --colorBgBody: #122e43;
+  --colorInput: #e2e2e2;
+  --colorDarkGray: #2d2d2d;
+  --colorLightGray: #999999;
+  --colorOverlay: rgba(10, 10, 10, 0.85);
+
+  /* Typography Structural Tokens */
+
+  --fontTitle: "Poppins", system-ui, -apple-system, sans-serif;
+  /* --fontBody: "Inter", system-ui, -apple-system, sans-serif; */
+  --fontBody: "Roboto", system-ui, -apple-system, sans-serif;
+  /* --fontBody: "Lora", Georgia, serif; */
+  /* --fontBody: "Merriweather", Georgia, serif; */
+
+  /* --fontTitle: "Playfair Display", Georgia, serif; */
+  /* --fontBody: "Inter", system-ui, -apple-system, sans-serif; */
+  /* --fontBody: "Open Sans", system-ui, -apple-system, sans-serif; */
+  /* --fontBody: "Montserrat", system-ui, -apple-system, sans-serif; */
+
+  /* --fontTitle: "Playfair", Georgia, serif; */
+  /* --fontBody: "Montserrat", system-ui, -apple-system, sans-serif; */
+  /* --fontBody: "Inter", system-ui, -apple-system, sans-serif; */
+  /* --fontBody: "Roboto", system-ui, -apple-system, sans-serif; */
+  /* --fontBody: "Open Sans", system-ui, -apple-system, sans-serif; */
+  --fuenteArrows: monospace, sans-serif;
+
+  /* Hierarchical Font Weights */
+  --weightRegular: 400;
+  --weightMedium: 500;
+  --weightBold: 700;
+
+  /* Scalable Font Scale (Strictly em) */
+  --textXs: 0.75em; /* .75rem */
+  --textSm: 0.875em; /* .875rem */
+  --textBase: 1em; /* 1rem */
+  --textMd: 1.125em; /* 1.125rem */
+  --textLg: 1.25em; /* 1.25rem */
+  --textXl: 1.5em; /* 1.5rem */
+  --text2xl: 2em; /* 2rem */
+  --text3xl: 3em; /* 3rem */
+  --text4xl: 4.25em; /* 4.25rem */
+
+  /* Line Heights (Leading) */
+  --leadingNone: 1;
+  --leadingTight: 1.25;
+  --leadingNormal: 1.5;
+  --leadingLoose: 1.8;
+
+  /* --- Text Micro-Spacing Scale (Strictly em) --- */
+  --letterSpacingCompressed: -0.02em; /* Base 1rem: -0.02rem */
+  --letterSpacingNormal: 0em; /* Base 1rem: 0rem */
+  --letterSpacingBase: 0.0625em; /* Base 1rem: .0625rem */
+  --letterSpacingWide: 0.05em; /* Base 1rem: .05rem */
+  --letterSpacingLoose: 0.12em; /* Base 1rem: .12rem */
+
+  --wordSpacingTight: -0.05em; /* Base 1rem: -0.05rem */
+  --wordSpacingNormal: 0em; /* Base 1rem: 0rem */
+  --wordSpacingBase: 0.0625em; /* Base 1rem: .0625rem */
+  --wordSpacingWide: 0.1em; /* Base 1rem: .1rem */
+
+  /* Animation Timings & Curves */
+  --timeFast: 0.3s;
+  --timeMedium: 0.5s;
+  --transitionMain: var(--timeFast) ease-out;
+  --transitionSecond: var(--timeMedium) ease-out;
+
+  /* Box Model Spacing Scale (Strictly rem) */
+  --spaceXs: 4px; /* .25rem */
+  --spaceSm: 8px; /* .5rem */
+  --spaceMd: 16px; /* 1rem */
+  --spaceLg: 24px; /* 1.5rem */
+  --spaceXl: 32px; /* 2rem */
+  --space2xl: 48px; /* 3rem */
+  --space3xl: 64px; /* 4rem */
+
+  /* Border Radius Constraints */
+  --bRadiusSm: 15px; /* .9375rem */
+  --bRadiusMd: 20px; /* 1.25rem */
+  --bRadiusRound: 50%;
+
+  /* Fluid Layout Metrics & Container Variables */
+  --sectionWidth: 100%;
+  --containerWidth: 90%;
+  --containerMaxWidth: 1720px; /* 107.5rem */
+  --spacingSection: clamp(40px, 4vw, 80px); /* Min: 2.5rem | 4% | Max: 5rem */
+  --marginTitle: clamp(30px, 3vw, 60px); /* Min: 1.875rem | 3% | Max: 3.75rem */
+  --marginTitleToParagraph: clamp(
+    30px,
+    3vw,
+    60px
+  ); /* Min: 1.875rem | 3% | Max: 3.75rem */
+}

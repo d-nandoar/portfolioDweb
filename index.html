@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DWeb Solutions | Innovación Digital</title>
+    <!-- Cimientos Core (v5.4) -->
+    <link rel="stylesheet" href="css/core/masterVariables.css" />
+    <link rel="stylesheet" href="css/core/masterReset.css" />
+    <link rel="stylesheet" href="css/core/masterStyles.css" />
+    <!-- Componente Nav -->
+    <link rel="stylesheet" href="css/components/cNav.css" />
+    <link rel="stylesheet" href="css/components/sHero.css" />
+    <link rel="stylesheet" href="css/components/sSoluciones.css" />
+    <link rel="stylesheet" href="css/components/sProyectos.css" />
+    <link rel="stylesheet" href="css/components/sNosotros.css" />
+    <link rel="stylesheet" href="css/components/sContacto.css" />
+    <link rel="stylesheet" href="css/components/sFooter.css" />
+  </head>
+  <!-- Fondo único basado en tu estética dark premium -->
+  <body>
+    <header class="cNav">
+      <div id="headerPrincipal" class="cNav__wrapper">
+        <div class="cNav__blockLogo">
+          <a href="/" id="linkLogo" class="cNav__logo">DWeb</a>
+        </div>
+
+        <nav id="navNavegacion" class="cNav__menu">
+          <ul class="cNav__menuList">
+            <li class="cNav__menuItem">
+              <a
+                href="#inicio"
+                id="linkInicio"
+                class="cNav__menuLink cNav__menuLink--active"
+                >Inicio</a
+              >
+            </li>
+
+            <li class="cNav__menuItem cNav__menuItem--dropdown">
+              <button
+                id="btnServicios"
+                class="cNav__menuLink cNav__menuLink--dropdown"
+                aria-expanded="false"
+                aria-haspopup="true"
+              >
+                Soluciones
+                <i class="cNav__iconArrow uMaskSvg"></i>
+              </button>
+
+              <ul
+                id="submenuServicios"
+                class="cNav__submenu uIsHidden"
+                aria-hidden="true"
+              >
+                <li class="cNav__submenuItem">
+                  <a
+                    href="#gestion-comercial"
+                    id="linkComercial"
+                    class="cNav__submenuLink"
+                    >Sistema Comercial</a
+                  >
+                </li>
+                <li class="cNav__submenuItem">
+                  <a
+                    href="#helpdesk"
+                    id="linkHelpdesk"
+                    class="cNav__submenuLink"
+                    >HelpDesk</a
+                  >
+                </li>
+                <li class="cNav__submenuItem">
+                  <a
+                    href="#soluciones"
+                    id="linkDesarrolloWeb"
+                    class="cNav__submenuLink"
+                    >Desarrollo Web</a
+                  >
+                </li>
+              </ul>
+            </li>
+
+            <li class="cNav__menuItem">
+              <a href="#proyectos" id="linkProyectos" class="cNav__menuLink"
+                >Proyectos</a
+              >
+            </li>
+
+            <li class="cNav__menuItem">
+              <a href="#nosotros" id="linkCompania" class="cNav__menuLink"
+                >Compañía</a
+              >
+            </li>
+
+            <li class="cNav__menuItem">
+              <a
+                href="#contacto"
+                id="linkCotizar"
+                class="cNav__menuLink cNav__menuLink--cta"
+                >Cotizar</a
+              >
+            </li>
+          </ul>
+        </nav>
+
+        <div class="cNav__blockHamb">
+          <button
+            id="btnTriggerMovil"
+            class="cNav__trigger"
+            aria-label="Abrir menú"
+          >
+            <i class="cNav__iconTrigger uMaskSvg"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main con fondo uniforme: El contenido se separa por espaciado (padding) -->
+    <main>
+      <section id="inicio" class="sHero">
+        <h1 class="sHero__title">DWeb Solutions</h1>
+        <p class="sHero__subtitle">Frontend Engineering</p>
+      </section>
+
+      <section id="soluciones" class="sSoluciones">
+        <h2 class="sTitle">DESARROLLO WEB</h2>
+      </section>
+
+      <section id="proyectos" class="sProyectos">
+        <h2 class="sTitle">PROYECTOS</h2>
+      </section>
+
+      <section id="nosotros" class="sNosotros">
+        <h2 class="sTitle">NOSOTROS</h2>
+      </section>
+
+      <section id="contacto" class="sContacto">
+        <h2 class="sTitle">CONTACTO</h2>
+      </section>
+    </main>
+
+    <!-- Footer integrado al color del body -->
+    <footer id="footer" class="sFooter">
+      <div
+        style="
+          width: 90%;
+          max-width: 1200px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        "
+      >
+        <p style="font-family: sans-serif; color: #5a616b; font-size: 0.75rem">
+          &copy; 2026 <span style="color: #00e5ff">DWeb Solutions</span>.
+        </p>
+        <p
+          style="
+            font-family: sans-serif;
+            color: #5a616b;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+          "
+        >
+          v5.4 Architecture
+        </p>
+      </div>
+    </footer>
+    <div id="overlayNav" class="cNav__overlay"></div>
+    <!-- JS de interacción -->
+    <script src="js/core/main.js"></script>
+    <script src="js/components/cNav.js"></script>
+  </body>
+</html>

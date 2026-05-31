@@ -1,0 +1,196 @@
+@charset "UTF-8";
+
+/* ==========================================================================
+   MASTER STYLES CORE (Global Architecture & Precision Utilities)
+   ========================================================================== */
+
+/* --- 1. DYNAMIC ACCESSIBILITY & UTILITIES OVERRIDES (:root) --- */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --colorPrimary: #f0f0f0;
+    --colorSecondary: #181818;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --colorPrimary: black;
+    --colorSecondary: white;
+  }
+}
+
+/* ==========================================================================
+   APPLICATION BASE STYLES & GLOBAL CORE INTERACTION
+   ========================================================================== */
+
+/* --- 2. LAYOUT BODY DECORATION --- */
+
+body {
+  font-family: var(--fontBody);
+  color: var(--colorDarkGray);
+  background-color: var(--colorBgBody);
+  letter-spacing: var(--letterSpacingBase);
+}
+
+/* --- 3. BASE INTERACTIVE ELEMENTS & TYPOGRAPHY FLOW --- */
+
+a {
+  /* Comportamiento y cursor resueltos en Reset. Solo mutación de estado. */
+  transition: color var(--transitionMain);
+}
+
+h1 {
+  font-family: var(--fontTitle);
+  font-size: clamp(var(--text2xl), 5vw, var(--text4xl));
+  line-height: var(--leadingNone);
+}
+
+h2 {
+  font-family: var(--fontTitle);
+  font-size: clamp(var(--textXl), 4vw, var(--text3xl));
+  line-height: var(--leadingTight);
+}
+
+h3 {
+  font-family: var(--fontTitle);
+  font-size: var(--text2xl);
+  line-height: var(--leadingTight);
+}
+
+h4 {
+  font-family: var(--fontTitle);
+  font-size: var(--textXl);
+}
+
+h5 {
+  font-family: var(--fontTitle);
+  font-size: var(--textLg);
+}
+
+h6 {
+  font-family: var(--fontTitle);
+  font-size: var(--textMd);
+}
+
+/* --- 4. STRUCTURAL MACRO CONSTRAINTS & RESPONSIVE CONTAINERS --- */
+
+section,
+.section {
+  position: relative;
+  width: var(--sectionWidth);
+  padding: var(--spacingSection) 0;
+}
+
+.uContainer {
+  position: relative;
+  width: var(--containerWidth);
+  max-width: var(--containerMaxWidth);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+/* --- 5. INTERFACE VISIBILITY & ACCESS CONTROLS --- */
+
+.uIsHidden {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity var(--transitionMain),
+    visibility var(--transitionMain);
+}
+
+/* Utilidad de colapso absoluto para el Enrutador de Vistas SPA */
+.uIsCollapsed {
+  display: none !important;
+}
+
+.uIsVisible {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  transition:
+    opacity var(--transitionMain),
+    visibility var(--transitionMain);
+}
+
+.uOverlayInactive {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  backdrop-filter: blur(0rem);
+  transition:
+    opacity var(--transitionSecond),
+    visibility var(--transitionSecond),
+    backdrop-filter var(--transitionSecond);
+}
+
+.uOverlayActive {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  backdrop-filter: blur(0.25rem);
+  transition:
+    opacity var(--transitionSecond),
+    visibility var(--transitionSecond),
+    backdrop-filter var(--transitionSecond);
+}
+
+/* --- 6. MOBILE STRUCTURAL VIEWPORT BUG FIXES --- */
+
+.uHeightDynamic {
+  height: 100dvh;
+}
+
+.uHeightSmall {
+  height: 100svh;
+}
+
+/* --- 7. CONTAINER UTILITIES & STRUCTURAL MICRO-LAYOUTS --- */
+
+.uFlexCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.uGridLayout {
+  display: grid;
+  gap: var(--spaceMd);
+}
+
+/* --- 8. RENDERING OPTIMIZATIONS & MEDIA MASKS --- */
+
+.uMaskSvg {
+  display: inline-block;
+  mask-size: contain;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  background-color: currentColor;
+  cursor: pointer;
+}
+
+/* --- 9. ENHANCED INPUT INTERACTIONS & ACCESSIBILITY FIELDS --- */
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 62.5rem var(--colorSecondary, #f0f0f0) inset !important;
+  -webkit-text-fill-color: var(--colorPrimary, #181818) !important;
+  transition: background-color 5000s ease-out 0s;
+}
+
+:focus-visible {
+  outline: 1px solid var(--colorInput);
+  outline-offset: 1px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+::selection {
+  background-color: var(--colorPrimary);
+  color: var(--colorSecondary);
+}

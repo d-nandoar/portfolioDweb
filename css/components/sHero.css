@@ -1,0 +1,36 @@
+.sHero {
+  /* 1. Positioning */
+  /* 2. Box Model */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 100svh;
+  padding: 2rem;
+  box-sizing: border-box;
+  /* 3. Typography */
+  /* 4. Visuals */
+  /* 5. Interactions */
+}
+
+.sHero__title {
+  /* 3. Typography */
+  font-size: 4em;
+  font-weight: 800;
+  text-align: center;
+  /* 2. Box Model */
+  margin: 0;
+  color: #ffffff;
+}
+
+.sHero__subtitle {
+  /* 3. Typography */
+  font-size: 0.8em;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  /* 2. Box Model */
+  margin-top: 1rem;
+  /* 4. Visuals */
+  color: #00e5ff;
+}
