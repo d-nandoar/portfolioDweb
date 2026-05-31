@@ -374,6 +374,9 @@
 
   .cNav__wrapper {
     /* width: 100%; */
+  }
+
+  .cNav__wrapper--scrolling {
     border-radius: var(--bRadiusSm);
   }
 

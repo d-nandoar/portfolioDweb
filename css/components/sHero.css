@@ -83,7 +83,7 @@
       rgba(10, 14, 20, 0.6) 45%,
       rgba(10, 14, 20, 0.4) 100%
     ),
-    url("/assets/img/fondoHero.jpeg");
+    url("../../assets/img/fondoHero.jpeg");
   background-size: cover;
   background-position: center;
   background-attachment: fixed; /* Parallax fijo */
@@ -292,6 +292,7 @@
     /* 4. Visuales */
     /* CAMBIO 2: Forzamos el comportamiento de scroll nativo para revivir la imagen en iOS/Android */
     background-attachment: scroll;
+    background-position: center center; /* Forzamos el centrado de la imagen */
   }
 }
 
@@ -302,8 +303,12 @@
     padding: 0 5%;
   }
 
+  .sHero__kicker {
+    font-size: 0.7em;
+  }
+
   .sHero__title {
-    font-size: 2em;
+    font-size: 1.5em;
   }
 
   .sHero__subtitle {
@@ -312,7 +317,7 @@
     max-width: 40rem;
 
     /* 3. Tipografía (EM para fuentes) */
-    font-size: 1em;
+    font-size: 0.8em;
   }
 
   .sHero__actions {
