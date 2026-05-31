@@ -64,7 +64,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  min-height: 100svh;
+  height: 100svh;
   /* Padding derecho del 8% para evitar que la "g" toque el borde */
   padding: 13rem 8% 6rem 5%;
 
