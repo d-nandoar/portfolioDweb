@@ -39,16 +39,20 @@ function router() {
   });
 
   // Manejo centralizado y único del posicionamiento (Scroll)
-  if (currentHash === "soluciones" || currentHash === "proyectos") {
-    const targetElement = document.getElementById(currentHash);
-    if (targetElement) {
-      // Retraso controlado milimétrico para asegurar que el DOM procesó el cambio de clase antes del scroll
-      setTimeout(() => {
-        targetElement.scrollIntoView({ behavior: "smooth" });
-      }, 10);
-    }
-  } else {
+  // Si la vista activa es "inicio", dejamos que el flujo mantenga su posición o use scroll natural.
+  if (currentHash === "inicio") {
+    // Si vienes de otra sección al inicio, resetea arriba de forma inmediata
     window.scrollTo(0, 0);
+  } else {
+    // Para cualquier vista SPA interna (soluciones, proyectos, contacto, nosotros),
+    // como las secciones anteriores se colapsan, la sección activa se vuelve el nuevo "techo" de la web.
+    // Usamos un retraso milimétrico controlado para que el scroll ocurra suavemente tras el reajuste del DOM.
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }, 15);
   }
 }
 

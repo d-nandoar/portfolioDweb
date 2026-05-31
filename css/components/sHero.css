@@ -1,36 +1,297 @@
+/* ==========================================================================
+   ANIMACIONES CORE (Desenfoque Direccional - Cuaderno Core v5.4)
+   ========================================================================== */
+
+@keyframes heroFadeBlurUp {
+  0% {
+    opacity: 0;
+    filter: blur(1rem);
+    transform: translateY(2rem);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroFadeBlurReveal {
+  0% {
+    opacity: 0;
+    filter: blur(1.5rem);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+@keyframes heroFadeBlurLeft {
+  0% {
+    opacity: 0;
+    filter: blur(1rem);
+    transform: translateX(-6rem);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateX(0);
+  }
+}
+
+@keyframes heroFadeBlurRight {
+  0% {
+    opacity: 0;
+    filter: blur(1rem);
+    transform: translateX(6rem);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateX(0);
+  }
+}
+
+/* ==========================================================================
+   SECCIÓN: sHero (Ajuste de Precisión y Legibilidad)
+   ========================================================================== */
+
 .sHero {
-  /* 1. Positioning */
-  /* 2. Box Model */
+  /* 1. Posicionamiento */
+  position: relative;
+
+  /* 2. Modelo de Caja */
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 100vh;
+  /* Padding derecho del 8% para evitar que la "g" toque el borde */
+  padding: 13rem 8% 6rem 5%;
+
+  /* 4. Visuales */
+  /* Degradado suavizado: 80% en la izquierda (menos oscuro) y 40% en la derecha */
+  background-image:/* 1er Gradiente (NUEVO): De abajo hacia arriba, oscurece sutilmente la base de los botones */
+    linear-gradient(
+      to top,
+      rgba(10, 14, 20, 0.85) 0%,
+      rgba(10, 14, 20, 0.2) 35%,
+      transparent 60%
+    ),
+    linear-gradient(
+      to right,
+      rgba(10, 14, 20, 0.8) 0%,
+      rgba(10, 14, 20, 0.6) 45%,
+      rgba(10, 14, 20, 0.4) 100%
+    ),
+    url("/assets/img/fondoHero.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* Parallax fijo */
+
+  overflow: hidden;
+}
+
+.sHero__wrapper {
+  /* 2. Modelo de Caja (REM para dimensiones) */
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-end;
   width: 100%;
-  min-height: 100svh;
-  padding: 2rem;
-  box-sizing: border-box;
-  /* 3. Typography */
-  /* 4. Visuals */
-  /* 5. Interactions */
+  max-width: 55rem; /* Ancho ajustado para evitar desbordamiento lateral */
+  text-align: right;
+  z-index: 2;
+}
+
+.sHero__kicker {
+  /* 2. Modelo de Caja (REM para spacing) */
+  margin-bottom: 1.5rem;
+  padding: 0.4rem 1rem;
+
+  /* 3. Tipografía (EM para fuentes) */
+  font-family: "Poppins", sans-serif;
+  font-size: 0.85em;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+
+  /* 4. Visuales */
+  color: #00e5ff;
+  background-color: rgba(0, 229, 255, 0.06);
+  border: 1px solid rgba(0, 229, 255, 0.15);
+  border-radius: 10rem;
+
+  /* 5. Interacciones / Animaciones */
+  animation: heroFadeBlurReveal 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
 .sHero__title {
-  /* 3. Typography */
-  font-size: 4em;
-  font-weight: 800;
-  text-align: center;
-  /* 2. Box Model */
-  margin: 0;
+  /* 2. Modelo de Caja */
+  margin: 0 0 1.5rem 0;
+
+  /* 3. Tipografía (EM para fuentes) */
+  font-family: "Poppins", sans-serif;
+  font-size: 3.2em;
+  font-weight: 700;
+  line-height: 1.1;
+
+  /* 4. Visuals */
   color: #ffffff;
+  /* Sombra de texto fuerte para garantizar legibilidad al 100% */
+  text-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.9);
+
+  /* 5. Interacciones / Animaciones */
+  opacity: 0;
+  animation: heroFadeBlurUp 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  animation-delay: 0.2s;
 }
 
 .sHero__subtitle {
-  /* 3. Typography */
-  font-size: 0.8em;
-  letter-spacing: 0.4em;
-  text-transform: uppercase;
-  /* 2. Box Model */
-  margin-top: 1rem;
-  /* 4. Visuals */
-  color: #00e5ff;
+  /* 2. Modelo de Caja (REM para dimensiones) */
+  margin: 0 0 3rem 0;
+  max-width: 40rem;
+
+  /* 3. Tipografía (EM para fuentes) */
+  font-family: "Roboto", sans-serif;
+  font-size: 1.15em;
+  font-weight: 400;
+  line-height: 1.6;
+
+  /* 4. Visuales */
+  color: #ffffff;
+  text-shadow: 0 0.3rem 1.5rem rgba(0, 0, 0, 0.9);
+
+  /* 5. Interacciones / Animaciones */
+  opacity: 0;
+  animation: heroFadeBlurLeft 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  animation-delay: 0.4s;
+}
+
+.sHero__actions {
+  /* 2. Modelo de Caja */
+  display: flex;
+  gap: 1.5rem;
+  justify-content: flex-end;
+
+  /* 5. Interacciones / Animaciones */
+  opacity: 0;
+  animation: heroFadeBlurRight 1.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  animation-delay: 0.6s;
+}
+
+/* --- Botones --- */
+.sHero__btn {
+  /* 2. Modelo de Caja (REM) */
+  display: inline-flex;
+  align-items: center;
+  padding: 0.9rem 2rem;
+  border-radius: 0.4rem;
+
+  /* 3. Tipografía */
+  font-family: "Poppins", sans-serif;
+  font-size: 0.95em;
+  font-weight: 500;
+  text-decoration: none;
+
+  /* 5. Interacciones */
+  transition:
+    transform 0.3s ease,
+    color 0.3s ease,
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+/* --- Botón Primario --- */
+.sHero__btn--primary {
+  /* 4. Visuales */
+  color: #0a0e14;
+  background-color: #00e5ff;
+  border: 1px solid #00e5ff;
+  box-shadow: 0 0.5rem 2rem rgba(0, 229, 255, 0.15);
+  /* 5. Interacciones / Animaciones */
+  /* transition:
+    transform 0.3s ease,
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease; */
+}
+
+/* 5. Interacciones (Primario) */
+.sHero__btn--primary:hover {
+  transform: translateY(-0.2rem);
+  background-color: #33ebff;
+  border-color: #33ebff;
+  box-shadow: 0 0.8rem 2.5rem rgba(0, 229, 255, 0.3);
+}
+
+.sHero__btn--primary:active {
+  transform: translateY(0);
+}
+
+/* --- Botón Secundario --- */
+.sHero__btn--secondary {
+  /* 4. Visuales */
+  color: #ffffff;
+  background-color: rgba(10, 14, 20, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  /* Resplandor interno sutil para mimetizarse con la atmósfera premium azulada */
+  box-shadow: inset 0 0 0.8rem rgba(0, 229, 255, 0.15);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  /* 5. Interacciones / Animaciones */
+  /* transition:
+    transform 0.3s ease,
+    color 0.3s ease,
+    background-color 5s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease; */
+}
+
+/* 5. Interacciones (Secundario) */
+.sHero__btn--secondary:hover {
+  transform: translateY(-0.2rem);
+  color: #00e5ff; /* El texto enciende sutilmente en cian en vez de oscurecerse */
+  background-color: rgba(
+    10,
+    14,
+    20,
+    0.75
+  ); /* Se vuelve más hermético para aislarse del fondo */
+  border-color: #00e5ff; /* El borde cobra vida con el cian de la marca */
+  /* Combina un resplandor exterior suave con la expansión del resplandor interior */
+  box-shadow:
+    0 0.5rem 2rem rgba(0, 229, 255, 0.2),
+    inset 0 0 1.2rem rgba(0, 229, 255, 0.3);
+}
+
+.sHero__btn--secondary:active {
+  transform: translateY(0);
+}
+
+/* --- Responsive (Desktop-First) --- */
+
+@media (max-width: 1200px) {
+  .sHero {
+    justify-content: center;
+    padding-right: 5%;
+  }
+  .sHero__wrapper {
+    align-items: center;
+    text-align: center;
+    margin: 0;
+  }
+  .sHero__actions {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .sHero__title {
+    font-size: 2.3em;
+  }
+  .sHero__actions {
+    flex-direction: column;
+    width: 100%;
+    max-width: 20rem;
+  }
 }
