@@ -182,6 +182,7 @@
 .sHero__btn {
   /* 2. Modelo de Caja (REM) */
   display: inline-flex;
+  justify-content: center;
   align-items: center;
   padding: 0.9rem 2rem;
   border-radius: 0.4rem;
@@ -285,10 +286,35 @@
   }
 }
 
-@media (max-width: 768px) {
-  .sHero__title {
-    font-size: 2.3em;
+/* === NUEVO BREAKPOINT COUPLING (Cuaderno Core v5.4) === */
+@media (max-width: 1024px) {
+  .sHero {
+    /* 4. Visuales */
+    /* CAMBIO 2: Forzamos el comportamiento de scroll nativo para revivir la imagen en iOS/Android */
+    background-attachment: scroll;
   }
+}
+
+@media (max-width: 768px) {
+  .sHero {
+    /* Padding derecho del 8% para evitar que la "g" toque el borde */
+    /* padding: 13rem 8% 6rem 5%; */
+    padding: 0 5%;
+  }
+
+  .sHero__title {
+    font-size: 2em;
+  }
+
+  .sHero__subtitle {
+    /* 2. Modelo de Caja (REM para dimensiones) */
+    margin: 0 0 3rem 0;
+    max-width: 40rem;
+
+    /* 3. Tipografía (EM para fuentes) */
+    font-size: 1em;
+  }
+
   .sHero__actions {
     flex-direction: column;
     width: 100%;

@@ -373,7 +373,7 @@
   }
 
   .cNav__wrapper {
-    width: var(--containerWidth);
+    /* width: 100%; */
     border-radius: var(--bRadiusSm);
   }
 
